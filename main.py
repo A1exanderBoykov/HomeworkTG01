@@ -1,20 +1,26 @@
 import asyncio
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
-
+from aiogram.types import Message, FSInputFile
+import random
 from config import TOKEN
 
-import random
+
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-@dp.message(Command('Photo'))
-async def photo(message: Message):
-    list = ['Ого как фотка', 'Непонятно, что это такое', 'Не отправляй мне такое']
-    rand_photo = random.choice(list)
-    await message.answer.photo(photo=rand_photo, caption=rand_photo)
+@dp.message(F.photo)
+async def react_photo(message: Message):
+    list = ['Ого, какая фотка!', 'Непонятно, что это такое', 'Не отправляй мне такое больше']
+    rand_answ = random.choice(list)
+    await message.answer(rand_answ)
+    await bot.download(message.photo[-1],destination=f'img/{message.photo[-1].file_id}.jpg')
+
+@dp.message(Command('voice'))
+async def voice(message: Message):
+    voice = FSInputFile("sample.ogg")
+    await message.answer_voice(voice)
 
 @dp.message(F.photo)
 async def react_photo(message: Message):

@@ -4,11 +4,24 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, FSInputFile
 import random
 from config import TOKEN
-
-
+import keyboard as kb
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
+
+
+@dp.message(CommandStart())
+async def start(message: Message):
+   await message.answer(f'Приветики, {message.from_user.first_name}', reply_markup=kb.inline_keyboard_test)
+
+@dp.message(F.text == "Привет")
+async def test_button(message: Message):
+   await message.answer(f'Привет, {message.from_user.first_name}')
+
+@dp.message(F.text == "Пока")
+async def test_button(message: Message):
+   await message.answer(f'Пока, {message.from_user.first_name}')
+
 
 @dp.message(F.photo)
 async def react_photo(message: Message):

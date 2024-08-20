@@ -1,3 +1,3 @@
-TOKEN = ""
-NASA_API_KEY = ""
+TOKEN = "7282660657:AAFiutE8dmpYRe4_1pLz1NxrCgvBZgdGHFQ"
+
 
